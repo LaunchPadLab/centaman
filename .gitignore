@@ -7,6 +7,8 @@
 /pkg/
 /spec/reports/
 /tmp/
+*.gem
+.DS_Store
 
 # rspec failure tracking
 .rspec_status
