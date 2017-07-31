@@ -25,7 +25,6 @@ require 'centaman/object/extra'
 require 'centaman/object/gift_ticket'
 require 'centaman/object/purchased_ticket'
 require 'centaman/object/ticket_type'
-require 'open-uri'
 require 'httparty'
 
 module Centaman
