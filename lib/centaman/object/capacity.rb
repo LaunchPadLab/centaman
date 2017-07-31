@@ -1,5 +1,6 @@
 module Centaman
   class Object::Capacity < Centaman::Object
+    # TODO is sold_out attr being used? remove?
     attr_accessor :sold_out
 
     # rubocop:disable Metrics/MethodLength

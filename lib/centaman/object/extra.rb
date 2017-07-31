@@ -29,8 +29,7 @@ module Centaman
 
     def description
       # TODO change description message to just use extra_description attr val?
-      @extra_description.gsub!('Bar Package Cocktail Cruises', 'Bar Package')
-      @description = @extra_description
+      extra_description
     end
 
     # rubocop:disable Metrics/MethodLength
