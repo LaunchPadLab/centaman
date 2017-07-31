@@ -9,7 +9,7 @@ module Centaman
     end
 
     def all_booking_type
-      Centaman::Object::BookingType.new({
+      object_class.new({
         'BookingTypeId' => 0,
         'BookingDescription' => 'All Booking Types'
       })
