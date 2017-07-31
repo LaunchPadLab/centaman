@@ -28,9 +28,9 @@ TODO: Write usage instructions here
 
 This gem assumes the following environment variables are defined by the application
 
-- CENTAMAN_API
-- API_USERNAME 
-- API_PASSWORD
+- CENTAMAN_API (Centaman API endpoint, ex: https://taxi.centaman.net/CentamanAPI)
+- API_USERNAME (Centaman API username)
+- API_PASSWORD (Centaman API password)
 - FIXIE_URL (Optional. Used with FIXIE proxy to route outbound requests through a set of static IP addresses)
 
 ## Development
