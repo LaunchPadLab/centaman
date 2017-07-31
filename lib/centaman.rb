@@ -1,5 +1,5 @@
-require "centaman/version"
+require 'centaman/version'
+require 'httparty'
 
 module Centaman
-  # Your code goes here...
 end
