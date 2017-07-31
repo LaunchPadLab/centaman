@@ -3,8 +3,7 @@ module Centaman
   class Wrapper
     # FIXIE = URI.parse(ENV['FIXIE_URL'])
 
-    include HTTParty
-    base_uri ENV['CENTAMAN_API']
+    include HTTParty    
     # http_proxy FIXIE.host, FIXIE.port, FIXIE.user, FIXIE.password
 
     attr_reader :api_username, :api_password
@@ -12,6 +11,7 @@ module Centaman
     def initialize(args = {})
       @api_username = ENV['API_USERNAME']
       @api_password = ENV['API_PASSWORD']
+      self.class.base_uri ENV['CENTAMAN_API']
       after_init(args)
     end
 
