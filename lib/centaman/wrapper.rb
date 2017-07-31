@@ -1,8 +1,7 @@
 module Centaman
   #:nodoc:
-  class Wrapper    
-    include HTTParty
-    base_uri ENV['CENTAMAN_API']
+  class Wrapper
+    include HTTParty    
     
     if ENV['FIXIE_URL']
       FIXIE = URI.parse(ENV['FIXIE_URL'])
@@ -14,6 +13,7 @@ module Centaman
     def initialize(args = {})
       @api_username = ENV['API_USERNAME']
       @api_password = ENV['API_PASSWORD']
+      self.class.base_uri ENV['CENTAMAN_API']
       after_init(args)
     end
 
