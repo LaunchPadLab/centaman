@@ -4,6 +4,8 @@ module Centaman
   class Object::BookingTime < Centaman::Object
     attr_reader :sold_out, :is_all_day, :show_time
 
+    # TODO remove app specific methods
+
     def define_variables(args)
       super
       @sold_out = vacancy <= 0 || is_booked_exclusively
