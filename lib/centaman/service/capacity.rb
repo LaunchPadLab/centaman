@@ -3,6 +3,7 @@ module Centaman
     attr_reader :booking_time_id, :start_date
 
     def after_init(args)
+      super
       @booking_time_id = args[:booking_time_id]
       @start_date = args[:start_date]
       require_args

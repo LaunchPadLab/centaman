@@ -5,6 +5,7 @@ module Centaman
     attr_reader :booking_time_id
 
     def after_init(args)
+      super
       @booking_time_id = args[:booking_time_id]
       require_args
     end

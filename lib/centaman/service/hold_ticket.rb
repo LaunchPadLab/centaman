@@ -3,6 +3,7 @@ module Centaman
     attr_reader :timed_ticket_type_id, :timed_ticket_id, :quantity
 
     def after_init(args)
+      super
       @timed_ticket_type_id = args[:timed_ticket_type_id]
       @timed_ticket_id = args[:timed_ticket_id]
       @quantity = args[:quantity]

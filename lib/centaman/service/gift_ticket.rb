@@ -3,6 +3,7 @@ module Centaman
     attr_reader :department_id
 
     def after_init(args)
+      super
       @department_id = args[:department_id] || 100067
     end
 

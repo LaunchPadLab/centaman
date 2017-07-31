@@ -3,11 +3,16 @@ module Centaman
     attr_reader :booking_type_id, :start_date, :end_date, :timed_ticket_type_id
 
     def after_init(args)
+      super
       @booking_type_id = args[:booking_type_id]
       @start_date = args[:start_date]
       @end_date = args[:end_date]
       parse_dates
       @timed_ticket_type_id = args[:id] # when finding a particular time
+    end
+
+    def default_object_class
+      Centaman::Object::BookingTime
     end
 
     def self.find(booking_type_id, booking_time_id, date)
@@ -22,10 +27,6 @@ module Centaman
 
     def endpoint
       '/ticket_services/TimedTicketType'
-    end
-
-    def default_object_class
-      Centaman::Object::BookingTime
     end
 
     def options

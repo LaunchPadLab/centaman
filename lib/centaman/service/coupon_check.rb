@@ -3,6 +3,7 @@ module Centaman
     attr_reader :coupon_code
 
     def after_init(args)
+      super
       @coupon_code = args[:coupon_code]
       require_args
     end

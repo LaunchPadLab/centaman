@@ -9,7 +9,7 @@ module Centaman
     def after_init(args)
       # overwritten by subclasses
       @object_class = args.fetch(:object_class, default_object_class)
-      raise "object_class is required for #{self.class.name}" unless @object_class
+      raise "object_class is required for #{self.class.name}" unless @object_class.present?
     end
 
     def objects
