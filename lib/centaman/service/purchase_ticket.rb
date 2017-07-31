@@ -31,6 +31,10 @@ module Centaman
       order_service
     end
 
+    def default_object_class
+      Centaman::Object::PurchaseTicket
+    end
+
     def tickets_payload
       calculators.map do |calculator|
         ticket_hash = {
