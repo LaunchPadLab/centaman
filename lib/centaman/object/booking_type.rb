@@ -2,8 +2,6 @@ module Centaman
   class Object::BookingType < Centaman::Object
     attr_reader :booking_type_mapping
 
-    # TODO Remove all booking type mapping methods?
-    
     def display_name
       booking_type_mapping.description || booking_description
     end

@@ -28,7 +28,6 @@ module Centaman
     end
 
     def description
-      # TODO change description message to just use extra_description attr val?
       @extra_description.gsub!('Bar Package Cocktail Cruises', 'Bar Package')
       @description = @extra_description
     end

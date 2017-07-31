@@ -20,7 +20,7 @@ module Centaman
       ticket_types
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::TicketType
     end
 

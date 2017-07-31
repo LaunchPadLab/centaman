@@ -12,7 +12,7 @@ module Centaman
       '/ticket_services/TimedTicketType'
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::Capacity
     end
 

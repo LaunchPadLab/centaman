@@ -10,7 +10,7 @@ module Centaman
       '/ticket_services/Ticket'
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::GiftTicket
     end
 

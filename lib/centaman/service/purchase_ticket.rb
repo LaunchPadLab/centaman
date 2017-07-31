@@ -18,21 +18,11 @@ module Centaman
     end
 
     def after_post(response)
-      # TODO: FIX ME
-      raise 'FIX ME'
-      # Centaman::service::PurchaseTicket.new gets called in centaman booking service.
-      # in create_transaction, .post called on purchaseticket object
-      # maybe keed centaman order.rb but move order creation to services/centman_booking_service
-      # after the post in create_transaction
       order_service = Centaman::Order.new(response, booking_time, contact, order_info, payment_reference)
       order = order_service.create_order
       order_service.create_tickets(response)
       GenerateTicketJob.perform_later(order.id)
       order_service
-    end
-
-    def default_object_class
-      Centaman::Object::PurchaseTicket
     end
 
     def tickets_payload

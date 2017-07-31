@@ -1,6 +1,5 @@
 module Centaman
   #:nodoc:
-  # TODO move centaman::order out of gem
   class Order
     attr_reader :receipt, :booking_id, :stored_order, :booking_time, 
                 :contact, :order_info, :payment_reference

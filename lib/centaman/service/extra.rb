@@ -7,12 +7,12 @@ module Centaman
       require_args
     end
 
-    def default_object_class
-      Centaman::Object::Extra
-    end
-
     def endpoint
       '/ticket_services/TimedTicketExtra'
+    end
+
+    def object_class
+      Centaman::Object::Extra
     end
 
     def options
