@@ -24,6 +24,15 @@ Or install it yourself as:
 
 TODO: Write usage instructions here
 
+## Required Environment Variables
+
+This gem assumes the following environment variables are defined by the application
+
+- CENTAMAN_API
+- API_USERNAME 
+- API_PASSWORD
+- FIXIE_URL (Optional. Used with FIXIE proxy to route outbound requests through a set of static IP addresses)
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
