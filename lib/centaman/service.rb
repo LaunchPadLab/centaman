@@ -4,9 +4,12 @@ module Centaman
   #:nodoc:
   class Service < Wrapper
     DEFAULT_TIMEOUT_TIME = 15
+    attr_reader :object_class
 
     def after_init(args)
       # overwritten by subclasses
+      @object_class = args.fetch(:object_class, default_object_class)
+      raise "object_class is required for #{self.class.name}" unless @object_class
     end
 
     def objects
@@ -21,7 +24,6 @@ module Centaman
           proc.call
         end
       rescue Timeout::Error
-        Raven.capture_message("centaman timeout: #{endpoint}")
         raise Exceptions::CentamanTimeout
       end
       resp
@@ -78,6 +80,12 @@ module Centaman
 
     def payload_key(request_type)
       request_type == :get ? :query : :body
+    end
+
+    private
+
+    def default_object_class
+      # hook for subclasses
     end
   end
 end

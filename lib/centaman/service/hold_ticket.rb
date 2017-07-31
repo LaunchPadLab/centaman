@@ -16,7 +16,7 @@ module Centaman
       '/ticket_services/TimedTicketType'
     end
 
-    def object_class
+    def default_object_class
       Centaman::Object::BookingTime
     end
 
