@@ -11,6 +11,7 @@ module Centaman
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
     def json
+      p "***** USING GEM BTIME JSON *****"
       {
         id: id,
         booking_type_id: booking_type_id,
