@@ -8,8 +8,6 @@ module Centaman
       @booking_time_id = args[:booking_time_id].try(:to_i)
       @start_date = args[:start_date]
       @end_date = args[:end_date]
-      @booking_type_service_class = args.fetch(:booking_type_service_class, default_booking_type_service_class)
-      @booking_time_service_class = args.fetch(:booking_time_service_class, default_booking_time_service_class)
     end
 
     def find_booking_type(booking_type_id)
@@ -22,7 +20,7 @@ module Centaman
     end
 
     def booking_types
-      @booking_types ||= booking_type_service_class.new.objects
+      @booking_types ||= Centaman::Service::BookingType.new.objects
     end
 
     def tickets
@@ -30,7 +28,7 @@ module Centaman
     end
 
     def booking_times
-      @booking_times ||= booking_time_service_class.new(
+      @booking_times ||= Centaman::Service::BookingTime.new(
         booking_type_id: booking_type_id,
         start_date: start_date,
         end_date: end_date
@@ -43,14 +41,6 @@ module Centaman
 
     def capacity
       @capacity ||= Centaman::Service::Capacity.new(booking_time_id: booking_time_id, start_date: start_date).objects.first
-    end
-
-    def default_booking_type_service_class
-      Centaman::Service::BookingType
-    end
-
-    def default_booking_time_service_class
-      Centaman::Service::BookingTime
     end
   end
 end
