@@ -1,7 +1,6 @@
 require 'centaman/version'
 require 'centaman/wrapper'
 require 'centaman/service'
-require 'centaman/order'
 require 'centaman/object'
 require 'centaman/filter'
 require 'centaman/attribute'

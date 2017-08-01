@@ -2,36 +2,11 @@ module Centaman
   #:nodoc:
   # rubocop:disable Metrics/ClassLength
   class Object::BookingTime < Centaman::Object
-    attr_reader :sold_out, :is_all_day, :show_time
+    attr_reader :sold_out
 
     def define_variables(args)
       super
       @sold_out = vacancy <= 0 || is_booked_exclusively
-      @is_all_day = is_all_day?
-      @display_start_time = 'All Day' if is_all_day?
-      @show_time = show_time?
-    end
-
-    def is_all_day?
-      all_day_descriptions = ['all','2 day']
-      all_day_descriptions.any? { |all_day_description| description.downcase.include?(all_day_description) }
-    end
-
-    def filter_start_time
-      return "IKEA" if booking_type_id == 91000208
-      return "VIP All Day" if booking_type_id == 2000209
-      return "2 Day" if booking_type_id == 2000275
-      display_start_time
-    end
-
-    def set_start_time
-      return "16:00:00" if booking_type_id == 2000275
-      start_time
-    end
-
-    def show_time?
-      skip_descriptions = ['all day', 'ikea', '2 day']
-      !skip_descriptions.any? { |description_to_skip| filter_start_time.downcase.include?(description_to_skip) }
     end
 
     # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
@@ -44,7 +19,7 @@ module Centaman
         start_date: start_date.strftime('%Y-%m-%d'),
         start_time: set_start_time,
         end_time: end_time,
-        display_start_time: filter_start_time,
+        display_start_time: display_start_time,
         display_end_time: display_end_time,
         capacity: capacity,
         vacancy: vacancy,
@@ -52,9 +27,7 @@ module Centaman
         booking_fee: booking_fee,
         booking_fee_item_code: booking_fee_item_code,
         cancelled: cancelled,
-        sold_out: sold_out,
-        is_all_day: is_all_day?,
-        show_time: show_time?
+        sold_out: sold_out
       }
     end
     # rubocop:enable Metrics/MethodLength
