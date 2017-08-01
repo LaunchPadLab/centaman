@@ -17,7 +17,7 @@ module Centaman
         booking_type_description: booking_type_description,
         description: description,
         start_date: start_date.strftime('%Y-%m-%d'),
-        start_time: set_start_time,
+        start_time: start_time,
         end_time: end_time,
         display_start_time: display_start_time,
         display_end_time: display_end_time,
