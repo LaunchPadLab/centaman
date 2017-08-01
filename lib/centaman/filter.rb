@@ -8,6 +8,8 @@ module Centaman
       @booking_time_id = args[:booking_time_id].try(:to_i)
       @start_date = args[:start_date]
       @end_date = args[:end_date]
+      @booking_type_service_class = args.fetch(:booking_type_service_class, default_booking_type_service_class)
+      @booking_time_service_class = args.fetch(:booking_time_service_class, default_booking_time_service_class)
     end
 
     def find_booking_type(booking_type_id)
@@ -41,6 +43,14 @@ module Centaman
 
     def capacity
       @capacity ||= Centaman::Service::Capacity.new(booking_time_id: booking_time_id, start_date: start_date).objects.first
+    end
+
+    def default_booking_type_service_class
+      Centaman::Service::BookingType
+    end
+
+    def default_booking_time_service_class
+      Centaman::Service::BookingTime
     end
   end
 end

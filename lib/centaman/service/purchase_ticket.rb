@@ -19,7 +19,7 @@ module Centaman
     end
 
     def default_object_class
-      Centaman::Object::PurchasedTicket
+      "no object_class"
     end
 
     def tickets_payload
