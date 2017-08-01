@@ -1,7 +1,5 @@
 module Centaman
   class Object::BookingType < Centaman::Object
-    attr_reader :booking_type_mapping
-
     def json
       {
         booking_type_id: booking_type_id,
