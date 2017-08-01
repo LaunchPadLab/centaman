@@ -26,11 +26,11 @@ module Centaman
     end
 
     def tickets
-      @tickets ||= booking_time_service_class.new(booking_time_id: booking_time_id).objects
+      @tickets ||= Centaman::Service::TicketType.new(booking_time_id: booking_time_id).objects
     end
 
     def booking_times
-      @booking_times ||= Centaman::Service::BookingTime.new(
+      @booking_times ||= booking_time_service_class.new(
         booking_type_id: booking_type_id,
         start_date: start_date,
         end_date: end_date
