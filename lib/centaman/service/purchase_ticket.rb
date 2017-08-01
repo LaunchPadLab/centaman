@@ -18,7 +18,7 @@ module Centaman
     end
 
     def default_object_class
-      Centaman::Object::PurchaseTicket
+      Centaman::Object::PurchasedTicket
     end
 
     def tickets_payload
