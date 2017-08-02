@@ -1,5 +1,30 @@
-require "centaman/version"
+require 'centaman/version'
+require 'centaman/wrapper'
+require 'centaman/service'
+require 'centaman/json_wrapper'
+require 'centaman/object'
+require 'centaman/filter'
+require 'centaman/attribute'
+require 'centaman/service/booking_time'
+require 'centaman/service/booking_type'
+require 'centaman/service/capacity'
+require 'centaman/service/coupon_check'
+require 'centaman/service/create_customer'
+require 'centaman/service/extra'
+require 'centaman/service/gift_ticket'
+require 'centaman/service/purchase_ticket'
+require 'centaman/service/ticket_type'
+require 'centaman/object/booking_time'
+require 'centaman/object/booking_type'
+require 'centaman/object/capacity'
+require 'centaman/object/coupon_check'
+require 'centaman/object/customer'
+require 'centaman/object/effect'
+require 'centaman/object/extra'
+require 'centaman/object/gift_ticket'
+require 'centaman/object/purchased_ticket'
+require 'centaman/object/ticket_type'
+require 'httparty'
 
 module Centaman
-  # Your code goes here...
 end
