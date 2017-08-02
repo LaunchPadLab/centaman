@@ -1,10 +1,10 @@
 module Centaman
   #:nodoc:
   class Service::CreateCustomer < Centaman::Service
+    include Centaman::JsonWrapper
     attr_reader :first_name, :last_name, :email, :phone
 
     def after_init(args)
-      super
       @first_name = args[:first_name]
       @last_name = args[:last_name]
       @email = args[:email]
@@ -15,7 +15,7 @@ module Centaman
       '/ticket_services/TimedTicket'
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::Customer
     end
 

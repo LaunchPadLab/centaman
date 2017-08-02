@@ -4,16 +4,9 @@ module Centaman
   #:nodoc:
   class Service < Wrapper
     DEFAULT_TIMEOUT_TIME = 15
-    attr_reader :object_class
 
     def after_init(args)
       # overwritten by subclasses
-      @object_class = args.fetch(:object_class, default_object_class)
-      raise "object_class is required for #{self.class.name}" unless @object_class.present?
-    end
-
-    def objects
-      @all ||= build_objects(fetch_all)
     end
 
     def wrap_request_in_case_of_timeout(proc, options = {})
@@ -52,25 +45,8 @@ module Centaman
     end
 
     def after_post(response)
+      raise "build_object is required for #{self.class.name} post requests" unless self.respond_to?(:build_object)
       build_object(response)
-    end
-
-    # i.e. from GET of an index
-    def build_objects(resp)
-      return [] unless resp.respond_to?(:map)
-      @tickets = resp.map do |ticket_hash|
-        object_class.new(ticket_hash.merge(additional_hash_to_serialize_after_response))
-      end
-    end
-
-    # i.e. from GET of a show or POST
-    def build_object(resp)
-      return resp unless resp.respond_to?(:merge)
-      @build_object ||= object_class.new(resp.merge(additional_hash_to_serialize_after_response))
-    end
-
-    def additional_hash_to_serialize_after_response
-      {}
     end
 
     def payload(request_type = :get)
@@ -80,12 +56,6 @@ module Centaman
 
     def payload_key(request_type)
       request_type == :get ? :query : :body
-    end
-
-    private
-
-    def default_object_class
-      # hook for subclasses
     end
   end
 end

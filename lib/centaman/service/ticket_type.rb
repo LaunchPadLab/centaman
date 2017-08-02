@@ -1,11 +1,11 @@
 module Centaman
   class Service::TicketType < Centaman::Service
+    include Centaman::JsonWrapper
     DISCOUNT = 0.0
 
     attr_reader :booking_time_id
 
     def after_init(args)
-      super
       @booking_time_id = args[:booking_time_id]
       require_args
     end
@@ -21,7 +21,7 @@ module Centaman
       ticket_types
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::TicketType
     end
 

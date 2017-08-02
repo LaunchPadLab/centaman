@@ -1,9 +1,9 @@
 module Centaman
   class Service::GiftTicket < Centaman::Service
+    include Centaman::JsonWrapper
     attr_reader :department_id
 
     def after_init(args)
-      super
       @department_id = args[:department_id] || 100067
     end
 
@@ -11,7 +11,7 @@ module Centaman
       '/ticket_services/Ticket'
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::GiftTicket
     end
 

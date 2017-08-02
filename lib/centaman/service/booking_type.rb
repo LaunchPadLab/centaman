@@ -1,10 +1,11 @@
 module Centaman
   class Service::BookingType < Centaman::Service
+    include Centaman::JsonWrapper
     def endpoint
       '/ticket_services/TimedTicket'
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::BookingType
     end
 

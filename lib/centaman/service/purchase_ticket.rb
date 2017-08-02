@@ -4,7 +4,6 @@ module Centaman
                 :contact, :order_info, :checkout_service
 
     def after_init(args)
-      super
       @booking_type = args[:booking_type]
       @booking_time = args[:booking_time]
       @tickets = args[:tickets]
@@ -16,10 +15,6 @@ module Centaman
 
     def endpoint
       '/ticket_services/TimedTicketTransaction'
-    end
-
-    def default_object_class
-      "no object_class"
     end
 
     def tickets_payload

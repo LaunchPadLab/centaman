@@ -1,9 +1,9 @@
 module Centaman
   class Service::Capacity < Centaman::Service
+    include Centaman::JsonWrapper
     attr_reader :booking_time_id, :start_date
 
     def after_init(args)
-      super
       @booking_time_id = args[:booking_time_id]
       @start_date = args[:start_date]
       require_args
@@ -13,7 +13,7 @@ module Centaman
       '/ticket_services/TimedTicketType'
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::Capacity
     end
 

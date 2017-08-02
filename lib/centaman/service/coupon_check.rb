@@ -1,9 +1,9 @@
 module Centaman
   class Service::CouponCheck < Centaman::Service
+    include Centaman::JsonWrapper
     attr_reader :coupon_code
 
     def after_init(args)
-      super
       @coupon_code = args[:coupon_code]
       require_args
     end
@@ -12,7 +12,7 @@ module Centaman
       '/coupon_services/check'
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::CouponCheck
     end
 

@@ -1,9 +1,9 @@
 module Centaman
   class Service::BookingTime < Centaman::Service
+    include Centaman::JsonWrapper
     attr_reader :booking_type_id, :start_date, :end_date, :timed_ticket_type_id
 
     def after_init(args)
-      super
       @booking_type_id = args[:booking_type_id]
       @start_date = args[:start_date]
       @end_date = args[:end_date]
@@ -11,7 +11,7 @@ module Centaman
       @timed_ticket_type_id = args[:id] # when finding a particular time
     end
 
-    def default_object_class
+    def object_class
       Centaman::Object::BookingTime
     end
 
