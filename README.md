@@ -1,6 +1,6 @@
 # Centaman
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/centaman`. To experiment with that code, run `bin/console` for an interactive prompt.
+A wrapper for the Centaman Ticketing API.
 
 TODO: Delete this and the text above, and describe your gem
 
@@ -22,16 +22,33 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+Retrieve Booking Type Objects for a certain date
+- Defaults to current date if no date parameters given
+`Centaman::Service::BookingType.new(start_date: DATE, end_date: DATE).objects`
+
+Find a Booking Type
+- Requires the booking type id (integer) and date 
+`Centaman::Service::BookingType.find(BOOKING_TYPE_ID, DATE)`
+
+Retrieve Booking Time Objects for a Booking Type
+- Requires the associated booking_type_id (integer)
+- start_date && end_date required to retireve booking times for a specific date, else defaults to current date
+`Centaman::Service::BookingTime.new(booking_type_id: ID, start_date: DATE, end_date: DATE).objects`
+
+Find a Booking Time
+- Requires the associated booking type id (integer), booking time id (integer), and date
+`Centaman::Service::BookingTime.find(BOOKING_TYPE_ID, BOOKING_TIME_ID, DATE)`
+
 
 ## Required Environment Variables
 
 This gem assumes the following environment variables are defined by the application
 
-- CENTAMAN_API_URL (Centaman API endpoint, ex: https://taxi.centaman.net/CentamanAPI)
-- CENTAMAN_API_USERNAME (Centaman API username)
-- CENTAMAN_API_PASSWORD (Centaman API password)
-- FIXIE_URL (Optional. Used with FIXIE proxy to route outbound requests through a set of static IP addresses)
+- CENTAMAN_API_URL
+- CENTAMAN_API_USERNAME
+- CENTAMAN_API_PASSWORD
+- CENTAMAN_API_TOKEN (Optional. Required if CENTAMAN_API_USERNAME and CENTAMAN_API_PASSWORD are not provided.)
+- FIXIE_URL (Optional. Used with FIXIE proxy to route outbound requests through a set of static IP addresses.)
 
 ## Development
 
