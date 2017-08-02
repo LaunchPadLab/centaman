@@ -1,11 +1,13 @@
 module Centaman
   #:nodoc:
   class Wrapper
-    # FIXIE = URI.parse(ENV['FIXIE_URL'])
-
     include HTTParty    
-    # http_proxy FIXIE.host, FIXIE.port, FIXIE.user, FIXIE.password
-
+    
+    if ENV['FIXIE_URL']
+      FIXIE = URI.parse(ENV['FIXIE_URL'])
+      http_proxy FIXIE.host, FIXIE.port, FIXIE.user, FIXIE.password
+    end
+    
     attr_reader :api_username, :api_password
 
     def initialize(args = {})
