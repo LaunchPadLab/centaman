@@ -1,3 +1,4 @@
+require 'httparty'
 require 'centaman/version'
 require 'centaman/wrapper'
 require 'centaman/service'
@@ -24,7 +25,6 @@ require 'centaman/object/extra'
 require 'centaman/object/gift_ticket'
 require 'centaman/object/purchased_ticket'
 require 'centaman/object/ticket_type'
-require 'httparty'
 
 module Centaman
 end
