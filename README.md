@@ -24,20 +24,27 @@ Or install it yourself as:
 
 Retrieve Booking Type Objects for a certain date
 - Defaults to current date if no date parameters given
-`Centaman::Service::BookingType.new(start_date: DATE, end_date: DATE).objects`
+```ruby
+  Centaman::Service::BookingType.new(start_date: DATE, end_date: DATE).objects
+```
 
 Find a Booking Type
 - Requires the booking type id (integer) and date 
-`Centaman::Service::BookingType.find(BOOKING_TYPE_ID, DATE)`
+```ruby
+  Centaman::Service::BookingType.find(BOOKING_TYPE_ID, DATE)`
 
 Retrieve Booking Time Objects for a Booking Type
 - Requires the associated booking_type_id (integer)
 - start_date && end_date required to retireve booking times for a specific date, else defaults to current date
-`Centaman::Service::BookingTime.new(booking_type_id: ID, start_date: DATE, end_date: DATE).objects`
+```ruby
+  Centaman::Service::BookingTime.new(booking_type_id: ID, start_date: DATE, end_date: DATE).objects
+```
 
 Find a Booking Time
 - Requires the associated booking type id (integer), booking time id (integer), and date
-`Centaman::Service::BookingTime.find(BOOKING_TYPE_ID, BOOKING_TIME_ID, DATE)`
+```ruby
+  Centaman::Service::BookingTime.find(BOOKING_TYPE_ID, BOOKING_TIME_ID, DATE)
+```
 
 
 ## Required Environment Variables
