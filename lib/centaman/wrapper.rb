@@ -8,21 +8,22 @@ module Centaman
       http_proxy FIXIE.host, FIXIE.port, FIXIE.user, FIXIE.password
     end
     
-    attr_reader :api_username, :api_password
+    attr_reader :api_username, :api_password, :api_token
 
     def initialize(args = {})
-      @api_username = ENV['API_USERNAME']
-      @api_password = ENV['API_PASSWORD']
-      self.class.base_uri ENV['CENTAMAN_API']
+      @api_username = ENV['CENTAMAN_API_USERNAME']
+      @api_password = ENV['CENTAMAN_API_PASSWORD']      
+      @api_token = ENV.fetch('CENTAMAN_API_TOKEN', generate_token)
+      self.class.base_uri ENV['CENTAMAN_API_URL']
       after_init(args)
     end
 
     def headers
-      { 'authorization' => "Basic #{encoded_string}", 'Content-Type' => 'application/json' }
+      { 'authorization' => "Basic #{api_token}", 'Content-Type' => 'application/json' }
     end
 
-    def encoded_string
-      @encoded_string ||= Base64.encode64("#{api_username}:#{api_password}")
+    def generate_token
+      Base64.encode64("#{api_username}:#{api_password}")
     end
 
     def options
