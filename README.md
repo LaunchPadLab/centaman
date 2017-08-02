@@ -2,8 +2,6 @@
 
 A wrapper for the Centaman Ticketing API.
 
-TODO: Delete this and the text above, and describe your gem
-
 ## Installation
 
 Add this line to your application's Gemfile:
@@ -22,7 +20,7 @@ Or install it yourself as:
 
 ## Usage
 
-Retrieve Booking Type Objects for a certain date
+Retrieve Booking Type Objects
 - Defaults to current date if no date parameters given
 ```ruby
   Centaman::Service::BookingType.new(start_date: DATE, end_date: DATE).objects
