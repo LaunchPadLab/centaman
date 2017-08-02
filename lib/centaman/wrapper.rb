@@ -1,7 +1,7 @@
 module Centaman
   #:nodoc:
   class Wrapper
-    include HTTParty    
+    include HTTParty
     
     if ENV['FIXIE_URL']
       FIXIE = URI.parse(ENV['FIXIE_URL'])
