@@ -40,12 +40,11 @@ module Centaman
           self.class.post(endpoint, payload(:post))
         end
         resp = wrap_request_in_case_of_timeout(req)
-        after_post(resp)
+        self.respond_to?(:build_object) ? after_post(resp) : resp
       end
     end
 
     def after_post(response)
-      raise "build_object is required for #{self.class.name} post requests" unless self.respond_to?(:build_object)
       build_object(response)
     end
 
