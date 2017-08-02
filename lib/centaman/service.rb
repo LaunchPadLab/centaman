@@ -17,7 +17,6 @@ module Centaman
           proc.call
         end
       rescue Timeout::Error
-        # Raven.capture_message("centaman timeout: #{endpoint}")
         raise Exceptions::CentamanTimeout
       end
       resp

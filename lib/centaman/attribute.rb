@@ -53,7 +53,6 @@ module Centaman
     def age_group
       return 'adult' if value.downcase.include?("adult")
       return 'child' if value.downcase.include?("child")
-      # Raven.capture_message("age group not found for value: #{value}")
       return 'adult'
     end
 
