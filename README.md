@@ -33,7 +33,7 @@ Find a Booking Type
 ```
 
 Retrieve Booking Time Objects for a Booking Type
-- Requires the associated booking_type_id (integer)
+- booking_type_id (integer) required to retrieve booking times for a specific booking type, else returns all booking times for all booking types
 - start_date && end_date required to retrieve booking times for a specific date, else defaults to current date
 ```ruby
   Centaman::Service::BookingTime.new(booking_type_id: BOOKING_TYPE_ID, start_date: DATE, end_date: DATE).objects
