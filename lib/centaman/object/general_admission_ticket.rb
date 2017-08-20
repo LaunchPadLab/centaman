@@ -65,7 +65,7 @@ module Centaman
         ),
         Centaman::Attribute.new(
           centaman_key: 'ShowTicket',
-          app_key: :show_ticke,
+          app_key: :show_ticket,
           type: :boolean
         ),
       ]
