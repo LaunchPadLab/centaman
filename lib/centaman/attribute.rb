@@ -53,6 +53,7 @@ module Centaman
     def age_group
       return 'adult' if value.downcase.include?("adult")
       return 'child' if value.downcase.include?("child")
+      return 'youth' if value.downcase.include?("youth")
       return 'adult'
     end
 
