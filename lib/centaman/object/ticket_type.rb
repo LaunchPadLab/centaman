@@ -19,6 +19,10 @@ module Centaman
       age_group == "adult"
     end
 
+    def youth?
+      age_group == "youth"
+    end
+
     # rubocop:disable Metrics/MethodLength
     def attributes
       [
