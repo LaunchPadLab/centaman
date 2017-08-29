@@ -1,5 +1,6 @@
 require 'httparty'
 require 'centaman/version'
+require 'centaman/exceptions'
 require 'centaman/wrapper'
 require 'centaman/service'
 require 'centaman/json_wrapper'
