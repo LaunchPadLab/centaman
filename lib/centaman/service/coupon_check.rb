@@ -1,10 +1,11 @@
 module Centaman
   class Service::CouponCheck < Centaman::Service
     include Centaman::JsonWrapper
-    attr_reader :coupon_code
+    attr_reader :coupon_code, :product_area
 
     def after_init(args)
       @coupon_code = args[:coupon_code]
+      @product_area = args[:product_area]
       require_args
     end
 
@@ -19,12 +20,16 @@ module Centaman
     def options_hash
       {
         'CouponCode' => coupon_code,
-        'ProductArea' => 'TimedTickets'
+        'ProductArea' => product_area
       }.to_json
     end
 
+    def required_fields
+      [coupon_code, product_area]
+    end
+
     def require_args
-      raise "coupon_code is required for #{self.class.name}" if coupon_code.nil?
+      raise "coupon_code and product_area required for #{self.class.name}" if required_fields.include?(nil)
     end
   end
 end

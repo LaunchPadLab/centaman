@@ -20,6 +20,7 @@ module Centaman
           app_key: :coupon_code,
           type: :integer
         ),
+        
         Centaman::Attribute.new(
           centaman_key: 'LimitedUse',
           app_key: :limited_use,
