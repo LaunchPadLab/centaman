@@ -27,7 +27,7 @@ Retrieve Booking Type Objects
 ```
 
 Find a Booking Type
-- Requires the booking type id (integer) and date 
+- Requires the booking type id (integer) and date
 ```ruby
   Centaman::Service::BookingType.find(BOOKING_TYPE_ID, DATE)
 ```
@@ -64,7 +64,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/centaman.
+Bug reports and pull requests are welcome on GitHub at https://github.com/LaunchPadLab/centaman.
 
 
 ## License
