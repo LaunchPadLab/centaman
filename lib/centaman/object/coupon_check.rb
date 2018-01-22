@@ -18,9 +18,9 @@ module Centaman
         Centaman::Attribute.new(
           centaman_key: 'CouponCode',
           app_key: :coupon_code,
-          type: :integer
+          type: :string
         ),
-        
+
         Centaman::Attribute.new(
           centaman_key: 'LimitedUse',
           app_key: :limited_use,
