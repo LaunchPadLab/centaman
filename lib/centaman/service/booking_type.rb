@@ -1,6 +1,7 @@
 module Centaman
   class Service::BookingType < Centaman::Service
     include Centaman::JsonWrapper
+
     def endpoint
       '/ticket_services/TimedTicket'
     end
@@ -17,11 +18,7 @@ module Centaman
     end
 
     def self.find(booking_type_id, date)
-      obj = new(
-        start_date: date,
-        end_date: date
-      )
-      obj.objects.detect {|obj| obj.booking_type_id == booking_type_id }
+      new.objects.detect {|obj| obj.booking_type_id == booking_type_id }
     end
   end
 end

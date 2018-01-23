@@ -1,13 +1,14 @@
 module Centaman
   #:nodoc:
   class Filter
-    attr_reader :booking_type_id, :booking_time_id, :start_date, :end_date
+    attr_reader :booking_type_id, :booking_time_id, :start_date, :end_date, :membership_type_id
 
     def initialize(args = {})
       @booking_type_id = args[:booking_type_id].try(:to_i)
       @booking_time_id = args[:booking_time_id].try(:to_i)
       @start_date = args[:start_date]
       @end_date = args[:end_date]
+      @membership_type_id = args.fetch(:membership_type_id, nil).try(:to_i)
     end
 
     def find_booking_type(booking_type_id)
@@ -41,6 +42,23 @@ module Centaman
 
     def capacity
       @capacity ||= Centaman::Service::Capacity.new(booking_time_id: booking_time_id, start_date: start_date).objects.first
+    end
+
+    def membership_types
+      Centaman::Service::MembershipType.new.objects
+    end
+
+    def find_membership_type(membership_type_id)
+      raise "membership_type_id is required for find_membership_type method of #{self.class.name} class" if membership_type_id.nil?
+      Centaman::Service::MembershipType.new.find(membership_type_id)
+    end
+
+    def packages
+      Centaman::Service::Package.new(membership_type_id: membership_type_id).objects
+    end
+
+    def find_package(id)
+      Centaman::Service::Package.new(membership_type_id: membership_type_id).find(id)
     end
   end
 end
