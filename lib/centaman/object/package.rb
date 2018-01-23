@@ -1,29 +1,23 @@
 module Centaman
-  class Object::MembershipType < Centaman::Object
-    attr_reader :id, :package_id
+  class Object::Package < Centaman::Object
+    attr_reader :id, :membership_type_id
 
     def define_variables(args)
       super
       @id = membership_code
-      @package_id = is_membership_package ? membership_code : nil
+      @membership_type_id = args.fetch(:membership_type_id, nil)
     end
 
     def json
       {
         id: id,
-        node_no: node_no,
+        membership_type_id: membership_type_id,
         membership_code: membership_code,
-        package_id: package_id,
         membership_class: membership_class,
-        department_description: department_description,
-        is_membership_package: is_membership_package,
-        join_fee_button_id: join_fee_button_id,
-        sort_sequence_number: sort_sequence_number,
         cost: cost,
         minimum_age: minimum_age,
         maximum_age: maximum_age,
         membership_description: membership_description,
-        is_age_based: is_age_based,
         sale_price: sale_price,
         is_tax_inclusive: is_tax_inclusive,
         tax_percentage: tax_percentage,
@@ -34,31 +28,6 @@ module Centaman
     # rubocop:disable Metrics/MethodLength
     def attributes
       [
-        Centaman::Attribute.new(
-          centaman_key: 'NodeNo',
-          app_key: :node_no,
-          type: :integer
-        ),
-        Centaman::Attribute.new(
-          centaman_key: 'DepartmentDescription',
-          app_key: :department_description,
-          type: :string
-        ),
-        Centaman::Attribute.new(
-          centaman_key: 'IsMemberShipPackage',
-          app_key: :is_membership_package,
-          type: :boolean
-        ),
-        Centaman::Attribute.new(
-          centaman_key: 'JoinFeeButtonId',
-          app_key: :join_fee_button_id,
-          type: :integer
-        ),
-        Centaman::Attribute.new(
-          centaman_key: 'SortSequenceNumber',
-          app_key: :sort_sequence_number,
-          type: :integer
-        ),
         Centaman::Attribute.new(
           centaman_key: 'MembershipCode',
           app_key: :membership_code,
