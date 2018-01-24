@@ -16,18 +16,13 @@ module Centaman
       Centaman::Object::Package
     end
 
-    def find(id)
-      objects.detect {|obj| obj.id == id }
+    def self.find(membership_type_id, id)
+      obj = new(membership_type_id: membership_type_id)
+      obj.objects.detect {|obj| obj.id == id }
     end
 
     def additional_hash_to_serialize_after_response
       { membership_type_id: membership_type_id }
     end
-
-    # def options_hash
-    #   {
-    #     'PackageID' => membership_type_id
-    #   }.to_json
-    # end
   end
 end

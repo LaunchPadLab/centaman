@@ -50,15 +50,15 @@ module Centaman
 
     def find_membership_type(membership_type_id)
       raise "membership_type_id is required for find_membership_type method of #{self.class.name} class" if membership_type_id.nil?
-      Centaman::Service::MembershipType.new.find(membership_type_id)
+      Centaman::Service::MembershipType.find(membership_type_id)
     end
 
     def packages
       Centaman::Service::Package.new(membership_type_id: membership_type_id).objects
     end
 
-    def find_package(id)
-      Centaman::Service::Package.new(membership_type_id: membership_type_id).find(id)
+    def find_package(membership_type_id, id)
+      Centaman::Service::Package.find(membership_type_id, id)
     end
   end
 end

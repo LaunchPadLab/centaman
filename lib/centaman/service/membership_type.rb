@@ -10,8 +10,8 @@ module Centaman
       Centaman::Object::MembershipType
     end
 
-    def find(id)
-      objects.detect {|obj| obj.id == id }
+    def self.find(id)
+      new.objects.detect {|obj| obj.id == id }
     end
   end
 end
