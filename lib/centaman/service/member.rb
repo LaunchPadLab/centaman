@@ -54,7 +54,7 @@ module Centaman
     end
 
     def not_found(resp)
-      { error: resp.parsed_response ? resp.parsed_response : 'Member not found' }
+      { error: resp.parsed_response || 'Member not found' }
     end
   end
 end
