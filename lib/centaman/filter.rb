@@ -1,7 +1,8 @@
 module Centaman
   #:nodoc:
   class Filter
-    attr_reader :booking_type_id, :booking_time_id, :start_date, :end_date, :membership_type_id
+    attr_reader :booking_type_id, :booking_time_id, :start_date, :end_date,
+                :membership_type_id, :member_code, :email
 
     def initialize(args = {})
       @booking_type_id = args[:booking_type_id].try(:to_i)
@@ -9,6 +10,8 @@ module Centaman
       @start_date = args[:start_date]
       @end_date = args[:end_date]
       @membership_type_id = args.fetch(:membership_type_id, nil).try(:to_i)
+      @member_code = args.fetch(:member_code, nil).try(:to_i)
+      @email = args.fetch(:email, nil)
     end
 
     def find_booking_type(booking_type_id)
@@ -59,6 +62,13 @@ module Centaman
 
     def find_package(membership_type_id, id)
       Centaman::Service::Package.find(membership_type_id, id)
+    end
+
+    def find_member(args)
+      Centaman::Service::Member.new(
+        member_code: args[:member_code],
+        email: args[:email]
+      ).objects
     end
   end
 end

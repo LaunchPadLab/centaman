@@ -18,7 +18,6 @@ module Centaman
         last_name: last_name,
         title: title,
         email: email,
-        password: password,
         gender: gender,
         date_of_birth: date_of_birth,
         address: address,
@@ -65,11 +64,6 @@ module Centaman
         Centaman::Attribute.new(
           centaman_key: 'Email',
           app_key: :email,
-          type: :string
-        ),
-        Centaman::Attribute.new(
-          centaman_key: 'Password',
-          app_key: :password,
           type: :string
         ),
         Centaman::Attribute.new(

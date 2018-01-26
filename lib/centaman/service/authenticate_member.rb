@@ -38,7 +38,7 @@ module Centaman
     private
 
     def auth_error(resp)
-      { error: resp.parsed_response || 'Authentication Failed. Invalid credentials.' }
+      { error: resp.parsed_response || 'Authentication Failed. Invalid login credentials.' }
     end
   end
 end
