@@ -2,10 +2,10 @@ module Centaman
   class Service::AuthenticateMember < Centaman::Service
     include Centaman::JsonWrapper
 
-    attr_reader :member_code, :last_name, :email, :password
+    attr_reader :member_number, :last_name, :email, :password
 
     def after_init(args)
-      @member_code = args.fetch(:member_code, nil).try(:to_i)
+      @member_number = args.fetch(:member_number, nil).try(:to_i)
       @last_name = args.fetch(:last_name, nil)
       @email = args.fetch(:email, nil)
       @password = args.fetch(:password, nil)
@@ -28,7 +28,7 @@ module Centaman
 
     def options_hash
       {
-        'MemberNumber' => member_code,
+        'MemberNumber' => member_number,
         'Surname' => last_name,
         'Email' => email,
         'Password' => password

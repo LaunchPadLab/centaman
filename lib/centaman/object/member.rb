@@ -13,7 +13,6 @@ module Centaman
         id: id,
         member_code: member_code,
         member_number: member_number,
-        memberships: memberships,
         first_name: first_name,
         last_name: last_name,
         title: title,
@@ -25,7 +24,8 @@ module Centaman
         primary_member_id: primary_member_id,
         gift_purchaser_id: gift_purchaser_id,
         concession_card_number: concession_card_number,
-        incomplete: incomplete
+        incomplete: incomplete,
+        memberships: memberships
       }
     end
 
