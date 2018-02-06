@@ -1,5 +1,5 @@
 module Centaman
-  class Object::Package < Centaman::Object
+  class Object::AddOn < Centaman::Object
     attr_reader :id, :membership_type_id
 
     def define_variables(args)

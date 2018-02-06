@@ -56,12 +56,12 @@ module Centaman
       Centaman::Service::MembershipType.find(membership_type_id)
     end
 
-    def packages
-      Centaman::Service::Package.new(membership_type_id: membership_type_id).objects
+    def add_ons
+      Centaman::Service::AddOn.new(membership_type_id: membership_type_id).objects
     end
 
-    def find_package(membership_type_id, id)
-      Centaman::Service::Package.find(membership_type_id, id)
+    def find_add_on(membership_type_id, id)
+      Centaman::Service::AddOn.find(membership_type_id, id)
     end
 
     def find_member(args)

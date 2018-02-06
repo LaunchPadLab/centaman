@@ -1,5 +1,5 @@
 module Centaman
-  class Service::Package < Centaman::Service
+  class Service::AddOn < Centaman::Service
     include Centaman::JsonWrapper
 
     attr_reader :membership_type_id
@@ -13,7 +13,7 @@ module Centaman
     end
 
     def object_class
-      Centaman::Object::Package
+      Centaman::Object::AddOn
     end
 
     def self.find(membership_type_id, id)
