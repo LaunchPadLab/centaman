@@ -25,12 +25,25 @@ module Centaman
       @build_object ||= object_class.new(resp.merge(additional_hash_to_serialize_after_response))
     end
 
+    # given primary member id, returns array with primary and associated secondary member records
     def self.find(id)
-      obj = new(member_code: id)
-      obj.objects.detect { |obj| obj.id == id }
+      members = self.find_members_by_id(id)
+      return members if members.detect { |obj| obj.is_primary }
+      return [] unless members.any?
+      find_members_by_id(members[0].primary_member_id)
+    end
+
+    # returns individual member object matching the given id
+    def self.find_member(id)
+      find(id).detect { |obj| obj.id == id }
     end
 
     private
+
+    def self.find_members_by_id(id)
+      obj = new(member_code: id)
+      obj.objects
+    end
 
     def member_endpoint(attr_key)
       attr_val = self.send(attr_key)

@@ -5,7 +5,7 @@ module Centaman
 
     def define_variables(args)
       super
-      @id = member_code # TODO confirm member code is the centaman defined ID
+      @id = member_code
     end
 
     def json
