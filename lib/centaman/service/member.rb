@@ -28,14 +28,15 @@ module Centaman
     # given primary member id, returns array with primary and associated secondary member records
     def self.find(id)
       members = self.find_members_by_id(id)
+      return unless members && members.any?
       return members if members.detect { |obj| obj.is_primary }
-      return [] unless members.any?
       find_members_by_id(members[0].primary_member_id)
     end
 
     # returns individual member object matching the given id
     def self.find_member(id)
-      find(id).detect { |obj| obj.id == id }
+      member_array = find(id) || []
+      member_array.detect { |obj| obj.id == id }
     end
 
     private
@@ -66,7 +67,7 @@ module Centaman
       raise "missing required arguments. #{self.class} must be instantiated with a :member_code or :email" if args_missing
     end
 
-    def not_found(resp)
+    def not_found(resp={})
       { error: resp.parsed_response || 'Member not found' }
     end
   end

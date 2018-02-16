@@ -44,6 +44,16 @@ module Centaman
       end
     end
 
+    def put
+      @put_request ||= begin
+        req = Proc.new do
+          self.class.put(endpoint, payload(:put))
+        end
+        resp = wrap_request_in_case_of_timeout(req)
+        self.respond_to?(:build_object) ? after_post(resp) : resp
+      end
+    end
+
     def after_post(response)
       build_object(response)
     end
