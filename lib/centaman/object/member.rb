@@ -1,12 +1,14 @@
 module Centaman
   class Object::Member < Centaman::Object
     # rubocop:disable Metrics/MethodLength
-    attr_reader :id, :package_id, :address
+    attr_reader :id, :package_id, :address, :memberships, :phone
 
     def define_variables(args)
       super
       @id = member_code
       @address = set_address
+      @phone = @address ? @address[:phone] : nil
+      @memberships = set_memberships
     end
 
     def full_name
@@ -26,6 +28,32 @@ module Centaman
         phone: home_address['HomePhone'],
         work_phone: home_address['WorkPhone'],
         mobile_phone: home_address['MobilePhone']
+      }
+    end
+
+    def set_memberships
+      return [] unless membership_list && membership_list.any?
+      membership_list.map { |m| set_membership(m) }
+    end
+
+    def set_membership(membership)
+      {
+        linkfield: membership['Linkfield'],
+        type_name: membership['TypeName'],
+        cancelled: membership['Cancelled'],
+        activated: membership['Activated'],
+        unique_package_id: membership['UniquePackageId'],
+        member_code: membership['MemberCode'],
+        type_code: membership['TypeCode'],
+        cost: membership['Cost'],
+        tax: membership['Tax'],
+        paid: membership['Paid'],
+        join_date: membership['JoinDate'],
+        expiry_date: membership['ExpiryDate'],
+        is_gift: membership['IsGift'],
+        purchaser_renewal: membership['PurchaserRenewal'],
+        package_id: membership['PackageID'],
+        payment_gateway_reference: membership['PaymentGatewayReference']
       }
     end
 
@@ -66,7 +94,7 @@ module Centaman
         ),
         Centaman::Attribute.new(
           centaman_key: 'Memberships',
-          app_key: :memberships,
+          app_key: :membership_list,
           type: :string
         ),
         Centaman::Attribute.new(

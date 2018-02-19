@@ -38,6 +38,8 @@ module Centaman
     private
 
     def auth_error(resp)
+      p "error from #{self.class.name}"
+
       message = { error: resp.parsed_response || 'Authentication Failed. Invalid login credentials.' }
       raise message[:error]
     end

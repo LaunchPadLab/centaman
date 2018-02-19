@@ -8,15 +8,15 @@ module Centaman
                 :gender, :phone, :email, :password, :is_primary
 
     def after_init(args)
-      @id = args.fetch(:id).try(:to_i)
-      @first_name = args.fetch(:first_name, nil)
-      @last_name = args.fetch(:last_name, nil)
-      @address = args.fetch(:address, {})
-      @gender = args.fetch(:gender, nil)
-      @phone = args.fetch(:phone, nil)
-      @email = args.fetch(:email, nil)
-      @password = args.fetch(:password, nil)
-      @is_primary = args.fetch(:is_primary, nil)
+      @id = args[:id].try(:to_i)
+      @first_name = args[:first_name]
+      @last_name = args[:last_name]
+      @address = args[:address].try(:symbolize_keys)
+      @gender = args[:gender]
+      @phone = args[:phone]
+      @email = args[:email]
+      @password = args[:password]
+      @is_primary = args[:is_primary]
     end
 
     def endpoint
@@ -51,7 +51,7 @@ module Centaman
     private
 
     def home_address
-      return if !address || address.empty?
+      return if !address
       {
         'street1': address[:street_address],
         'street2': '',
