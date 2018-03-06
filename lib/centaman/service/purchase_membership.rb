@@ -22,6 +22,7 @@ module Centaman
     end
 
     def membership_payload(member_id, add_on)
+      p "payload building for #{member_id}, #{add_on.id}"
       {
         'MemberCode': member_id,
         'TypeCode': add_on.id,
@@ -34,6 +35,7 @@ module Centaman
     end
 
     def build_membership_request
+      p "*** build_membership_request ***"
       members.map do |m|
         order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
           @memberships << membership_payload(m.id, ao)
@@ -42,6 +44,7 @@ module Centaman
     end
 
     def options_hash
+      # binding.pry
       memberships.to_json
     end
   end
