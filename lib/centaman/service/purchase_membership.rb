@@ -27,7 +27,7 @@ module Centaman
         'TypeCode': add_on.id,
         'Cost': add_on.cost,
         'Tax': 0,
-        'Paid': add_on.cost,
+        'Paid': add_on.pay_price,
         'PackageID': membership_type_id,
         'PurchaserRenewal': purchaser_renewal
       }

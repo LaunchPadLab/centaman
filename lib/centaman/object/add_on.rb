@@ -1,6 +1,6 @@
 module Centaman
   class Object::AddOn < Centaman::Object
-    attr_reader :id, :membership_type_id
+    attr_reader :id, :membership_type_id, :pay_price
 
     def define_variables(args)
       super
@@ -41,6 +41,11 @@ module Centaman
         Centaman::Attribute.new(
           centaman_key: 'Cost',
           app_key: :cost,
+          type: :float
+        ),
+        Centaman::Attribute.new(
+          centaman_key: 'Cost',
+          app_key: :pay_price,
           type: :float
         ),
         Centaman::Attribute.new(

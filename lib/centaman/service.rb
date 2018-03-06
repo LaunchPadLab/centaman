@@ -30,6 +30,7 @@ module Centaman
         resp = wrap_request_in_case_of_timeout(req, timeout_time: 20)
 
         raise resp['Message'] if resp.is_a?(Hash)
+        raise Exceptions::CentamanTimeout unless resp.success?
         resp
       end
     end
