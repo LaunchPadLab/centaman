@@ -3,7 +3,7 @@ module Centaman
     attr_reader :udfs, :member_code
 
     def after_init(args)
-      @udfs = args[:udfs] || []
+      @udfs = args.fetch(:udfs, [])
       @member_code = args[:member_code]
     end
 

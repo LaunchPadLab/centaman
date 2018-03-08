@@ -1,19 +1,21 @@
 module Centaman
   class Service::PurchaseMembership < Centaman::Service
-    attr_reader :payment_reference, :order_info, :checkout_service,
+    attr_reader :payment_reference, :order_info, :checkout_service, :coupon_service,
                 :members, :memberships, :add_ons, :membership_type_id,
-                :is_new, :purchaser_renewal
+                :is_new, :purchaser_renewal, :coupon
 
     def after_init(args)
       @payment_reference = args[:payment_reference]
-      @is_new = args.fetch(:is_new, true)
+      @is_new = true
       @order_info = args[:order_info]
       @purchaser_renewal = order_info.is_renewal
       @checkout_service = args[:checkout_service]
+      @coupon_service = args[:coupon_service]
       @membership_type_id = @order_info.membership_type_id
       @members = @order_info.members
       @add_ons = @checkout_service.add_ons
       @memberships = []
+      @coupon = @coupon_service.valid_coupon
       build_membership_request
     end
 
@@ -22,8 +24,7 @@ module Centaman
     end
 
     def membership_payload(member_id, add_on)
-      p "payload building for #{member_id}, #{add_on.id}"
-      {
+      payload = {
         'MemberCode': member_id,
         'TypeCode': add_on.id,
         'Cost': add_on.cost,
@@ -32,10 +33,31 @@ module Centaman
         'PackageID': membership_type_id,
         'PurchaserRenewal': purchaser_renewal
       }
+      coupon.present? ? payload.merge(coupon_args(add_on)) : payload
+    end
+
+    def coupon_args(add_on)
+      return empty_coupon_args unless coupon_service.coupon_applies(add_on)
+      {
+        'Coupon': {
+          "CouponCode": coupon.code,
+          "DiscountAmount": coupon_service.amount_saved(add_on),
+          "StockID": coupon.stock_code
+        }
+      }
+    end
+
+    def empty_coupon_args
+      {
+        'Coupon': {
+          "CouponCode": nil,
+          "DiscountAmount": 0,
+          "StockID": nil
+        }
+      }
     end
 
     def build_membership_request
-      p "*** build_membership_request ***"
       members.map do |m|
         order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
           @memberships << membership_payload(m.id, ao)
@@ -44,7 +66,6 @@ module Centaman
     end
 
     def options_hash
-      # binding.pry
       memberships.to_json
     end
   end

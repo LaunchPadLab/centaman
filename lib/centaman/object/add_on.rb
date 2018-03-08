@@ -1,6 +1,6 @@
 module Centaman
   class Object::AddOn < Centaman::Object
-    attr_reader :id, :membership_type_id, :pay_price
+    attr_reader :id, :membership_type_id
 
     def define_variables(args)
       super
@@ -15,6 +15,7 @@ module Centaman
         membership_code: membership_code,
         membership_class: membership_class,
         cost: cost,
+        pay_price: pay_price,
         minimum_age: minimum_age,
         maximum_age: maximum_age,
         membership_description: membership_description,

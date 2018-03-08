@@ -17,7 +17,7 @@ module Centaman
           proc.call
         end
       rescue Timeout::Error
-        p "*** CENTAMAN GEM TIMEOUT WRAPPER ***"
+        p "*** CENTAMAN GEM TIMEOUT ***"
         raise Exceptions::CentamanTimeout
       end
       resp
@@ -30,8 +30,8 @@ module Centaman
         end
         resp = wrap_request_in_case_of_timeout(req, timeout_time: 20)
 
-        raise resp['Message'] if resp.is_a?(Hash)
-        raise Exceptions::CentamanTimeout unless resp.success?
+        raise resp['Message'] if resp && resp.is_a?(Hash)
+        raise Exceptions::CentamanTimeout unless resp && resp.success?
         resp
       end
     end

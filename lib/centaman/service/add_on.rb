@@ -18,7 +18,7 @@ module Centaman
 
     def self.find(membership_type_id, id)
       obj = new(membership_type_id: membership_type_id)
-      obj.objects.detect {|obj| obj.id == id }
+      obj.objects.detect { |obj| obj.id == id }
     end
 
     def additional_hash_to_serialize_after_response
