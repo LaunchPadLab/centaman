@@ -2,13 +2,14 @@ module Centaman
   class Service::PurchaseMembership < Centaman::Service
     attr_reader :payment_reference, :order_info, :checkout_service, :coupon_service,
                 :members, :memberships, :add_ons, :membership_type_id,
-                :is_new, :purchaser_renewal, :coupon
+                :is_new, :purchaser_renewal, :is_new, :coupon, :has_card_discount
 
     def after_init(args)
       @payment_reference = args[:payment_reference]
-      @is_new = true
       @order_info = args[:order_info]
-      @purchaser_renewal = order_info.is_renewal
+      @purchaser_renewal = @order_info.is_renewal
+      @is_new = !@order_info.is_renewal
+      @has_card_discount = @order_info.fnbo_discount
       @checkout_service = args[:checkout_service]
       @coupon_service = args[:coupon_service]
       @membership_type_id = @order_info.membership_type_id
@@ -28,12 +29,14 @@ module Centaman
         'MemberCode': member_id,
         'TypeCode': add_on.id,
         'Cost': add_on.cost,
-        'Tax': 0,
+        'Tax': checkout_service.add_on_tax(add_on),
         'Paid': add_on.pay_price,
         'PackageID': membership_type_id,
-        'PurchaserRenewal': purchaser_renewal
+        'PurchaserRenewal': purchaser_renewal,
+        'PaymentGatewayReference': payment_reference
       }
-      coupon.present? ? payload.merge(coupon_args(add_on)) : payload
+      payload = coupon.present? ? payload.merge(coupon_args(add_on)) : payload
+      payload = has_card_discount ? payload.merge(card_discount_args) : payload
     end
 
     def coupon_args(add_on)
@@ -43,6 +46,16 @@ module Centaman
           "CouponCode": coupon.code,
           "DiscountAmount": coupon_service.amount_saved(add_on),
           "StockID": coupon.stock_code
+        }
+      }
+    end
+
+    def card_discount_args
+      return empty_card_args unless has_card_discount
+      {
+        'CardDiscount': {
+          'DiscountAmount': checkout_service.fnbo_amount,
+          'StockID': checkout_service.fnbo_stock_id
         }
       }
     end
@@ -57,6 +70,15 @@ module Centaman
       }
     end
 
+    def empty_card_args
+      {
+        'CardDiscount': {
+          'DiscountAmount': 0,
+          'StockID': nil
+        }
+      }
+    end
+
     def build_membership_request
       members.map do |m|
         order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
@@ -66,6 +88,8 @@ module Centaman
     end
 
     def options_hash
+      p "PAYLOAD"
+      p @memberships
       memberships.to_json
     end
   end
