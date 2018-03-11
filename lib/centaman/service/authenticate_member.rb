@@ -38,7 +38,7 @@ module Centaman
     private
 
     def auth_error(resp)
-      message = { error: resp.parsed_response || 'Authentication Failed. Invalid login credentials.' }
+      message = { error: 'Invalid authentication request. Card/Member Number and Lastname not found .' }
       raise message[:error]
     end
   end
