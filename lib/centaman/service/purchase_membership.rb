@@ -19,7 +19,6 @@ module Centaman
       @join_date = args.fetch(:join_date, nil)
       @expiry_date = args.fetch(:expiry_date, nil)
       @purchaser_renewal = args.fetch(:purchaser_renewal, false)
-      # build_membership_request
     end
 
     def endpoint
