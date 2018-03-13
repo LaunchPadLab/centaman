@@ -59,7 +59,7 @@ module Centaman
         'state': address[:state].try(:upcase),
         'postcode': address[:zip].try(:upcase),
         'country': address[:country].try(:upcase),
-        'homePhone': phone,
+        'homePhone': phone.try(:delete, "^0-9"),
         'workPhone': address[:work_phone],
         'mobilePhone': address[:mobile_phone]
       }
