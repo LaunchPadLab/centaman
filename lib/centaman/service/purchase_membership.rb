@@ -1,9 +1,8 @@
 module Centaman
   class Service::PurchaseMembership < Centaman::Service
     attr_reader :payment_reference, :order_info, :checkout_service, :coupon_service,
-                :members, :renewal_memberships, :new_memberships, :add_ons, :membership_type_id,
-                :is_new, :coupon, :has_card_discount, :renewal_members, :new_members,
-                :join_date, :expiry_date, :purchaser_renewal
+                :members, :add_ons, :membership_type_id, :memberships,
+                :is_new, :coupon, :has_card_discount, :join_date, :expiry_date, :purchaser_renewal
 
     def after_init(args={})
       @payment_reference = args[:payment_reference]
@@ -15,15 +14,12 @@ module Centaman
       @membership_type_id = @order_info.membership_type_id
       @members = args.fetch(:members, [])
       @add_ons = @checkout_service.add_ons
-      @renewal_members = @members.select { |m| m.memberships.any? }
-      @new_members = @members.reject { |m| m.memberships.any? }
-      @renewal_memberships = []
-      @new_memberships = []
+      @memberships = []
       @coupon = @coupon_service.valid_coupon
       @join_date = args.fetch(:join_date, nil)
       @expiry_date = args.fetch(:expiry_date, nil)
       @purchaser_renewal = args.fetch(:purchaser_renewal, false)
-      build_membership_request
+      # build_membership_request
     end
 
     def endpoint
@@ -31,6 +27,8 @@ module Centaman
     end
 
     def membership_payload(member, add_on)
+      p 'dates'
+      p join_date, expiry_date
       payload = {
         'MemberCode': member.id,
         'TypeCode': add_on.id,
@@ -87,35 +85,42 @@ module Centaman
       }
     end
 
-    def renewal_request
-      p "build renewal_request"
-      renewal_members.map do |m|
-        order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
-          @renewal_memberships << membership_payload(m, ao)
-        end
-      end
-      @renewal_memberships = @renewal_memberships.uniq
-    end
+    # def renewal_request
+    #   p "build renewal_request"
+    #   renewal_members.map do |m|
+    #     order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
+    #       @renewal_memberships << membership_payload(m, ao)
+    #     end
+    #   end
+    #   @renewal_memberships = @renewal_memberships.uniq
+    # end
 
-    def new_membership_request
-      p "building new_membership_request"
-      new_members.map do |m|
-        order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
-          @new_memberships << membership_payload(m, ao)
-        end
-      end
-      @new_memberships = @new_memberships.uniq
-    end
+    # def new_membership_request
+    #   p "building new_membership_request"
+    #   new_members.map do |m|
+    #     order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
+    #       @new_memberships << membership_payload(m, ao)
+    #     end
+    #   end
+    #   @new_memberships = @new_memberships.uniq
+    # end
 
     def build_membership_request
-      is_new ? new_membership_request : renewal_request
+      p "build request"
+      members.map do |m|
+        order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
+          @memberships << membership_payload(m, ao)
+        end
+      end
+      @memberships
     end
 
     def options_hash
       p "*** PAYLOAD ***"
-      p @new_memberships if is_new
-      p @renewal_memberships if !is_new
-      build_membership_request.to_json
+      p build_membership_request
+      memberships.to_json
+      # p @new_memberships if is_new
+      # p @renewal_memberships if !is_new
     end
   end
 end
