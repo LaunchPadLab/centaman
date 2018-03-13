@@ -3,7 +3,7 @@ require 'timeout'
 module Centaman
   #:nodoc:
   class Service < Wrapper
-    DEFAULT_TIMEOUT_TIME = 20
+    DEFAULT_TIMEOUT_TIME = 15
 
     def after_init(args)
       # overwritten by subclasses
