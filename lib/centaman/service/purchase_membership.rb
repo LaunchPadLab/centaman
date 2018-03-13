@@ -1,26 +1,32 @@
 module Centaman
   class Service::PurchaseMembership < Centaman::Service
     attr_reader :payment_reference, :order_info, :checkout_service, :coupon_service,
-                :members, :memberships, :add_ons, :membership_type_id,
-                :is_new, :is_new, :coupon, :has_card_discount
+                :members, :renewal_memberships, :new_memberships, :add_ons, :membership_type_id,
+                :is_new, :coupon, :has_card_discount, :renewal_members, :new_members,
+                :join_date, :expiry_date, :purchaser_renewal
 
-    def after_init(args)
+    def after_init(args={})
       @payment_reference = args[:payment_reference]
       @order_info = args[:order_info]
-      @is_new = !@order_info.is_renewal
+      @is_new = args.fetch(:is_new, false)
       @has_card_discount = @order_info.fnbo_discount
       @checkout_service = args[:checkout_service]
       @coupon_service = args[:coupon_service]
       @membership_type_id = @order_info.membership_type_id
-      @members = @order_info.update_members
+      @members = args.fetch(:members, [])
       @add_ons = @checkout_service.add_ons
-      @memberships = []
+      @renewal_members = @members.select { |m| m.memberships.any? }
+      @new_members = @members.reject { |m| m.memberships.any? }
+      @renewal_memberships = []
+      @new_memberships = []
       @coupon = @coupon_service.valid_coupon
+      @join_date = args.fetch(:join_date, nil)
+      @expiry_date = args.fetch(:expiry_date, nil)
+      @purchaser_renewal = args.fetch(:purchaser_renewal, false)
       build_membership_request
     end
 
     def endpoint
-      p "/member_services/Membership?isNew=#{is_new}"
       "/member_services/Membership?isNew=#{is_new}"
     end
 
@@ -32,9 +38,11 @@ module Centaman
         'Tax': checkout_service.add_on_tax(add_on),
         'Paid': add_on.pay_price,
         'PackageID': membership_type_id,
-        'PurchaserRenewal': member.memberships.any?,
-        'PaymentGatewayReference': payment_reference
-      }
+        'PurchaserRenewal': purchaser_renewal,
+        'PaymentGatewayReference': payment_reference,
+        'JoinDate': join_date,
+        'ExpiryDate': expiry_date
+      }.compact
       payload = coupon.present? ? payload.merge(coupon_args(add_on)) : payload
       payload = has_card_discount ? payload.merge(card_discount_args(add_on)) : payload
     end
@@ -79,19 +87,35 @@ module Centaman
       }
     end
 
-    def build_membership_request
-      members.map do |m|
-        # binding.pry
+    def renewal_request
+      p "build renewal_request"
+      renewal_members.map do |m|
         order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
-          @memberships << membership_payload(m, ao)
+          @renewal_memberships << membership_payload(m, ao)
         end
       end
+      @renewal_memberships = @renewal_memberships.uniq
+    end
+
+    def new_membership_request
+      p "building new_membership_request"
+      new_members.map do |m|
+        order_info.add_ons_for_member(add_ons, m.member_type).each do |ao|
+          @new_memberships << membership_payload(m, ao)
+        end
+      end
+      @new_memberships = @new_memberships.uniq
+    end
+
+    def build_membership_request
+      is_new ? new_membership_request : renewal_request
     end
 
     def options_hash
-      p "PAYLOAD"
-      p @memberships
-      memberships.to_json
+      p "*** PAYLOAD ***"
+      p @new_memberships if is_new
+      p @renewal_memberships if !is_new
+      build_membership_request.to_json
     end
   end
 end
