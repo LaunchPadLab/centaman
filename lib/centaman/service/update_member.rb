@@ -55,14 +55,14 @@ module Centaman
       {
         'street1': address[:street_address],
         'street2': '',
-        'suburb': address[:city],
-        'city': address[:city],
+        'suburb': address[:suburb],
+        'city': address[:suburb] || address[:city],
         'state': address[:state],
         'postcode': address[:zip],
         'country': address[:country],
         'homePhone': phone,
-        'workPhone': '',
-        'mobilePhone': ''
+        'workPhone': address[:work_phone],
+        'mobilePhone': address[:mobile_phone]
       }
     end
 
