@@ -34,11 +34,11 @@ module Centaman
 
     def options_hash_no_json
       {
-        'FirstName' => first_name,
-        'LastName' => last_name,
-        'homeAddress' => home_address,
-        'Gender' => gender,
-        'Email' => email,
+        'FirstName' => first_name.try(:upcase),
+        'LastName' => last_name.try(:upcase),
+        'homeAddress' => home_address.try(:upcase),
+        'Gender' => gender.try(:upcase),
+        'Email' => email.try(:upcase),
         'Password' => password,
         'IsPrimary' => is_primary
       }
@@ -53,12 +53,12 @@ module Centaman
     def home_address
       return if !address
       {
-        'street1': address[:street_address],
+        'street1': address[:street_address].try(:upcase),
         'street2': '',
-        'suburb': address[:suburb],
-        'state': address[:state],
-        'postcode': address[:zip],
-        'country': address[:country],
+        'suburb': address[:suburb].try(:upcase),
+        'state': address[:state].try(:upcase),
+        'postcode': address[:zip].try(:upcase),
+        'country': address[:country].try(:upcase),
         'homePhone': phone,
         'workPhone': address[:work_phone],
         'mobilePhone': address[:mobile_phone]

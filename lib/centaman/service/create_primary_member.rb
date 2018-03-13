@@ -30,9 +30,9 @@ module Centaman
     def options_hash
       [
         {
-          'FirstName' => first_name,
-          'LastName' => last_name,
-          'Email' => email,
+          'FirstName' => first_name.try(:upcase),
+          'LastName' => last_name.try(:upcase),
+          'Email' => email.try(:upcase),
           'Password' => password,
           'IsPrimary' => true
         }
