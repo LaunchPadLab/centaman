@@ -36,7 +36,7 @@ module Centaman
       {
         'FirstName' => first_name.try(:upcase),
         'LastName' => last_name.try(:upcase),
-        'homeAddress' => home_address.try(:upcase),
+        'HomeAddress' => home_address,
         'Gender' => gender.try(:upcase),
         'Email' => email.try(:upcase),
         'Password' => password,
@@ -56,6 +56,7 @@ module Centaman
         'street1': address[:street_address].try(:upcase),
         'street2': '',
         'suburb': address[:suburb].try(:upcase),
+        'city': address[:city].try(:upcase),
         'state': address[:state].try(:upcase),
         'postcode': address[:zip].try(:upcase),
         'country': address[:country].try(:upcase),
