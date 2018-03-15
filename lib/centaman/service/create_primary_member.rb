@@ -7,9 +7,9 @@ module Centaman
     attr_reader :first_name, :last_name, :email, :password
 
     def after_init(args)
-      @first_name = args[:first_name]
-      @last_name = args[:last_name]
-      @email = args[:email]
+      @first_name = args[:first_name].try(:squish)
+      @last_name = args[:last_name].try(:squish)
+      @email = args[:email].try(:squish)
       @password = args[:password] || SecureRandom.hex
     end
 

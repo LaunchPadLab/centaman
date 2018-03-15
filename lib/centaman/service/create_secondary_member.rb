@@ -35,9 +35,9 @@ module Centaman
 
     def build_member(member)
       {
-        'FirstName' => member.first_name.try(:upcase),
-        'LastName' => member.last_name.try(:upcase),
-        'Title' => member.title.try(:upcase),
+        'FirstName' => member.first_name.try(:squish).try(:upcase),
+        'LastName' => member.last_name.try(:squish).try(:upcase),
+        'Title' => member.title.try(:squish).try(:upcase),
         'IsPrimary' => false,
         'PrimaryMemberId' => primary_member_id
       }

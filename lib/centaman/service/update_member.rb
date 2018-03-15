@@ -9,12 +9,12 @@ module Centaman
 
     def after_init(args)
       @id = args[:id].try(:to_i)
-      @first_name = args[:first_name]
-      @last_name = args[:last_name]
+      @first_name = args[:first_name].try(:squish)
+      @last_name = args[:last_name].try(:squish)
       @address = args[:address].try(:symbolize_keys)
       @gender = args[:gender]
       @phone = args[:phone]
-      @email = args[:email]
+      @email = args[:email].try(:squish)
       @password = args[:password]
       @is_primary = args[:is_primary]
     end
@@ -53,16 +53,16 @@ module Centaman
     def home_address
       return if !address
       {
-        'street1': address[:street_address].try(:upcase),
+        'street1': address[:street_address].try(:squish).try(:upcase),
         'street2': '',
-        'suburb': address[:suburb].try(:upcase),
-        'city': address[:city].try(:upcase),
-        'state': address[:state].try(:upcase),
-        'postcode': address[:zip].try(:upcase),
-        'country': address[:country].try(:upcase),
+        'suburb': address[:suburb].try(:squish).try(:upcase),
+        'city': address[:city].try(:squish).try(:upcase),
+        'state': address[:state].try(:squish).try(:upcase),
+        'postcode': address[:zip].try(:squish).try(:upcase),
+        'country': address[:country].try(:squish).try(:upcase),
         'homePhone': phone.try(:delete, "^0-9"),
-        'workPhone': address[:work_phone],
-        'mobilePhone': address[:mobile_phone]
+        'workPhone': address[:work_phone].try(:delete, "^0-9"),
+        'mobilePhone': address[:mobile_phone].try(:delete, "^0-9")
       }
     end
 
