@@ -30,6 +30,26 @@ module Centaman
           centaman_key: 'UsesRemaining',
           app_key: :uses_remaining,
           type: :integer
+        ),
+        Centaman::Attribute.new(
+          centaman_key: 'ConditionForUse',
+          app_key: :condition_for_user,
+          type: :string
+        ),
+        Centaman::Attribute.new(
+          centaman_key: 'CouponStockID',
+          app_key: :coupon_stock_id,
+          type: :integer
+        ),
+        Centaman::Attribute.new(
+          centaman_key: 'IsValidForNewMembership',
+          app_key: :is_valid_for_new_membership,
+          type: :boolean
+        ),
+        Centaman::Attribute.new(
+          centaman_key: 'IsvalidForRenewMembership',
+          app_key: :is_valid_for_renew_membership,
+          type: :boolean
         )
       ]
     end
