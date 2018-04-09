@@ -33,7 +33,7 @@ module Centaman
         ),
         Centaman::Attribute.new(
           centaman_key: 'ConditionForUse',
-          app_key: :condition_for_user,
+          app_key: :condition_for_use,
           type: :string
         ),
         Centaman::Attribute.new(
