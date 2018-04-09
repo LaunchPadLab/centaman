@@ -48,9 +48,9 @@ module Centaman
       return {} unless coupon_service.coupon_applies(add_on)
       {
         'Coupon': {
-          "CouponCode": coupon.code,
+          "CouponCode": coupon.coupon_code,
           "DiscountAmount": coupon_service.amount_saved(add_on),
-          "StockID": coupon.stock_code
+          "StockID": coupon.coupon_stock_id
         }
       }
     end

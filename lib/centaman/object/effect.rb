@@ -1,6 +1,18 @@
 module Centaman
   class Object::Effect < Centaman::Object
     # rubocop:disable Metrics/MethodLength
+    def dollar_discount
+      effect_type == 'DiscountAmount'
+    end
+
+    def percent_discount
+      effect_type == 'DiscountPercent'
+    end
+
+    def override_discount
+      effect_type == 'PriceOverride'
+    end
+
     def attributes
       [
         Centaman::Attribute.new(
