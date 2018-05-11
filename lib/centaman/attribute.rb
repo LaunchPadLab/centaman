@@ -39,7 +39,7 @@ module Centaman
       value
     end
 
-    def display_time      
+    def display_time
       array = value.split(":")
       hour = array[0].try(:to_i)
       minute = array[1].try(:to_i)
@@ -51,9 +51,10 @@ module Centaman
     end
 
     def age_group
-      return 'adult' if value.downcase.include?("adult")
-      return 'child' if value.downcase.include?("child")
-      return 'youth' if value.downcase.include?("youth")
+      return 'adult' if value.downcase.include?('adult')
+      return 'child' if value.downcase.include?('child')
+      return 'youth' if value.downcase.include?('youth')
+      return 'senior' if value.downcase.include?('senior')
       return 'adult'
     end
 

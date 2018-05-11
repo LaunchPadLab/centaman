@@ -16,15 +16,19 @@ module Centaman
     end
 
     def adult?
-      age_group == "adult"
+      age_group == 'adult'
     end
 
     def youth?
-      age_group == "youth"
+      age_group == 'youth'
     end
 
     def child?
-      age_group == "child"
+      age_group == 'child'
+    end
+
+    def senior?
+      age_group == 'senior'
     end
 
     # rubocop:disable Metrics/MethodLength
