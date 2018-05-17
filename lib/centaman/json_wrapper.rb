@@ -9,14 +9,14 @@ module Centaman
     def build_objects(resp)
       return [] unless resp.respond_to?(:map)
       @tickets = resp.map do |ticket_hash|
-        object_class.new(ticket_hash.merge(additional_hash_to_serialize_after_response))
+        final_object_class.new(ticket_hash.merge(additional_hash_to_serialize_after_response))
       end
     end
 
     # i.e. from GET of a show or POST
     def build_object(resp)
       return resp unless resp.respond_to?(:merge)
-      @build_object ||= object_class.new(resp.merge(additional_hash_to_serialize_after_response))
+      @build_object ||= final_object_class.new(resp.merge(additional_hash_to_serialize_after_response))
     end
 
     def additional_hash_to_serialize_after_response
@@ -25,6 +25,13 @@ module Centaman
 
     def object_class
       raise "object_class is required for #{self.class.name}"
+    end
+
+    def final_object_class
+      name = self.class.name.split('::').last
+      override = Centaman.configuration.object_overrides[name]
+      override_class = override.constantize if override
+      override_class || object_class
     end
   end
 end
