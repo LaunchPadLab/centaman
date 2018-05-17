@@ -28,7 +28,7 @@ module Centaman
         'State' => '',
         'Postalcode' => '',
         'Country' => '',
-        'HomePhone' => phone,
+        'HomePhone' => phone || '',
         'WorkPhone' => '',
         'MobilePhone' => ''
       }
