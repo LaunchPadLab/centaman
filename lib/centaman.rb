@@ -41,6 +41,16 @@ require 'centaman/object/membership_type'
 require 'centaman/object/add_on'
 require 'centaman/object/purchased_ticket'
 require 'centaman/object/ticket_type'
+require 'centaman/configuration'
 
 module Centaman
+  class << self  
+    def configuration
+      @config ||= Centaman::Configuration.new
+    end
+
+    def config
+      yield configuration
+    end
+  end
 end
