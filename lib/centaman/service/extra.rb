@@ -1,10 +1,11 @@
 module Centaman
   class Service::Extra < Centaman::Service
     include Centaman::JsonWrapper
-    attr_reader :booking_time_id
+    attr_reader :booking_time_id, :cost_rate_id
 
     def after_init(args)
       @booking_time_id = args[:booking_time_id]
+      @cost_rate_id = args[:cost_rate_id]
       require_args
     end
 
@@ -18,8 +19,15 @@ module Centaman
 
     def options
       super + [
-        { key: 'TimedTicketTypeId', value: booking_time_id }
+        { key: 'TimedTicketTypeId', value: booking_time_id },
+        { key: 'CostRateId', value: cost_rate_id }
       ]
+    end
+
+    def additional_hash_to_serialize_after_response
+      {
+        booking_time_id: booking_time_id
+      }
     end
 
     def require_args

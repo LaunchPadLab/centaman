@@ -1,9 +1,11 @@
 module Centaman
   class Object::Extra < Centaman::Object
+    attr_reader :booking_time_id
     attr_accessor :quantity
 
-    def after_init(_args = {})
+    def after_init(args = {})
       @quantity = 0
+      @booking_time_id = args.fetch(:booking_time_id, nil)
     end
 
     def price

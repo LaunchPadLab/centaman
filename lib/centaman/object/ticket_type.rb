@@ -1,7 +1,11 @@
 module Centaman
   class Object::TicketType < Centaman::Object
-    attr_reader :price, :discount
+    attr_reader :price, :discount, :booking_time_id
     attr_accessor :quantity
+
+    def after_init(args)
+      @booking_time_id = args.fetch(:booking_time_id, nil)
+    end
 
     def price
       @price ||= begin
