@@ -1,7 +1,7 @@
 require 'securerandom'
 
 module Centaman
-  class Service::CreateSecondaryMember < Centaman::Service
+  class Service::CreateSecondaryMembers < Centaman::Service
     include Centaman::JsonWrapper
 
     attr_reader :primary_member_id, :secondary_members
@@ -37,15 +37,14 @@ module Centaman
       {
         'FirstName' => member.first_name.try(:squish).try(:upcase),
         'LastName' => member.last_name.try(:squish).try(:upcase),
-        'Title' => member.title.try(:squish).try(:upcase),
         'IsPrimary' => false,
         'PrimaryMemberId' => primary_member_id
       }
     end
 
     def create_error(resp)
-      message = { error: resp.parsed_response || 'Unable to create the member record(s).' }
-      raise message[:error]
+      message = resp.parsed_response || 'Unable to create the member record(s).'
+      raise message
     end
   end
 end
