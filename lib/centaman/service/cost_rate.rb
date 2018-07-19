@@ -1,13 +1,12 @@
 module Centaman
   class Service::CostRate < Centaman::Service
     include Centaman::JsonWrapper
-    attr_reader :first_name, :last_name, :email, :primary_member_id
+    attr_reader :first_name, :last_name, :email
 
-    def after_init(args={})
+    def after_init(args = {})
       @first_name = args.fetch(:first_name, nil)
       @last_name = args.fetch(:last_name, nil)
       @email = args.fetch(:email, nil)
-      @primary_member_id = args.fetch(:primary_member_id, nil)
     end
 
     def object_class
