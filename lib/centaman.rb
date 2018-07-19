@@ -12,6 +12,7 @@ require 'centaman/service/authenticate_member'
 require 'centaman/service/booking_time'
 require 'centaman/service/booking_type'
 require 'centaman/service/capacity'
+require 'centaman/service/cost_rate'
 require 'centaman/service/coupon_check'
 require 'centaman/service/create_customer'
 require 'centaman/service/create_primary_member'
@@ -30,6 +31,7 @@ require 'centaman/service/ticket_type'
 require 'centaman/object/booking_time'
 require 'centaman/object/booking_type'
 require 'centaman/object/capacity'
+require 'centaman/object/cost_rate'
 require 'centaman/object/coupon_check'
 require 'centaman/object/customer'
 require 'centaman/object/effect'
@@ -44,7 +46,7 @@ require 'centaman/object/ticket_type'
 require 'centaman/configuration'
 
 module Centaman
-  class << self  
+  class << self
     def configuration
       @config ||= Centaman::Configuration.new
     end
