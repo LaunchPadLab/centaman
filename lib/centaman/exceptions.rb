@@ -1,5 +1,7 @@
 module Centaman
   module Exceptions
-    class CentamanTimeout < StandardError; end
+    class CentamanError < StandardError; end
+    class CentamanTimeout < CentamanError; end
+    class CentamanUnauthorized < CentamanError; end
   end
 end
