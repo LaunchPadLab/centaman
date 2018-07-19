@@ -22,7 +22,7 @@ module Centaman
     def build_object(resp)
       return build_objects(resp) if resp.respond_to?(:map)
 
-      return auth_error(resp) unless resp.respond_to?(:merge)
+      return auth_error unless resp.respond_to?(:merge)
       @build_object ||= object_class.new(resp.merge(additional_hash_to_serialize_after_response))
     end
 
@@ -37,9 +37,8 @@ module Centaman
 
     private
 
-    def auth_error(resp)
-      message = { error: 'Invalid authentication request. Card/Member Number and Lastname not found .' }
-      raise message[:error]
+    def auth_error
+      raise 'Invalid authentication request. Card/Member Number and Lastname not found.'
     end
   end
 end
