@@ -38,7 +38,7 @@ module Centaman
     private
 
     def auth_error
-      raise 'Invalid authentication request. Card/Member Number and Lastname not found.'
+      raise Centaman::Exceptions::CentamanUnauthorized.new('Invalid authentication request. Card/Member Number and Lastname not found.')
     end
   end
 end
