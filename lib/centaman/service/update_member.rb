@@ -37,7 +37,7 @@ module Centaman
         'FirstName' => first_name.try(:upcase),
         'LastName' => last_name.try(:upcase),
         'HomeAddress' => home_address,
-        'Gender' => gender.try(:upcase),
+        'Gender' => gender,
         'Email' => email.try(:upcase),
         'Password' => password,
         'IsPrimary' => is_primary
@@ -54,7 +54,7 @@ module Centaman
       return if !address
       {
         'street1': address[:street_address].try(:squish).try(:upcase),
-        'street2': '',
+        'street2': address[:street_address_two].try(:squish).try(:upcase),
         'suburb': address[:suburb].try(:squish).try(:upcase),
         'city': address[:city].try(:squish).try(:upcase),
         'state': address[:state].try(:squish).try(:upcase),
@@ -67,8 +67,8 @@ module Centaman
     end
 
     def update_error(resp)
-      message = { error: resp.parsed_response || 'Unable to update member record.' }
-      raise message[:error]
+      message = resp.parsed_response || 'Unable to update member record.'
+      raise Centaman::Exceptions::CentamanError.new(message)
     end
   end
 end

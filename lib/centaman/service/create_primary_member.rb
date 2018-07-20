@@ -4,11 +4,15 @@ module Centaman
   class Service::CreatePrimaryMember < Centaman::Service
     include Centaman::JsonWrapper
 
-    attr_reader :first_name, :last_name, :email, :password
+    attr_reader :first_name, :last_name, :gender, :title, :date_of_birth,
+                :email, :password
 
     def after_init(args)
       @first_name = args[:first_name].try(:squish)
       @last_name = args[:last_name].try(:squish)
+      @gender = args[:gender].try(:squish)
+      @title = args[:title].try(:squish)
+      @date_of_birth = args[:date_of_birth]
       @email = args[:email].try(:squish)
       @password = args[:password] || SecureRandom.hex
     end
@@ -32,6 +36,9 @@ module Centaman
         {
           'FirstName' => first_name.try(:upcase),
           'LastName' => last_name.try(:upcase),
+          'Gender' => gender,
+          'Title' => title.try(:upcase),
+          'DateOfBirth' => date_of_birth,
           'Email' => email.try(:upcase),
           'Password' => password,
           'IsPrimary' => true
@@ -42,8 +49,8 @@ module Centaman
     private
 
     def create_error(resp)
-      message = { error: resp.parsed_response || 'Unable to create primary member record.' }
-      raise message[:error]
+      message = resp.parsed_response || 'Unable to create primary member record.'
+      raise Centaman::Exceptions::CentamanError.new(message)
     end
   end
 end

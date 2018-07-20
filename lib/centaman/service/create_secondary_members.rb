@@ -37,6 +37,9 @@ module Centaman
       {
         'FirstName' => member.first_name.try(:squish).try(:upcase),
         'LastName' => member.last_name.try(:squish).try(:upcase),
+        'Gender' => member.gender.try(:squish),
+        'Title' => member.title.try(:squish).try(:upcase),
+        'DateOfBirth' => member.date_of_birth,
         'IsPrimary' => false,
         'PrimaryMemberId' => primary_member_id
       }
@@ -44,7 +47,7 @@ module Centaman
 
     def create_error(resp)
       message = resp.parsed_response || 'Unable to create the member record(s).'
-      raise message
+      raise Centaman::Exceptions::CentamanError.new(message)
     end
   end
 end
