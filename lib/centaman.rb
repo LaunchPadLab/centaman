@@ -42,6 +42,8 @@ require 'centaman/object/member'
 require 'centaman/object/membership_type'
 require 'centaman/object/add_on'
 require 'centaman/object/purchased_ticket'
+require 'centaman/object/purchased_timed_ticket'
+require 'centaman/object/purchased_general_admission_ticket'
 require 'centaman/object/ticket_type'
 require 'centaman/configuration'
 

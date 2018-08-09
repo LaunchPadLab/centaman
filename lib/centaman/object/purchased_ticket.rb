@@ -1,4 +1,11 @@
 class Centaman::Object::PurchasedTicket < Centaman::Object
+  attr_accessor :id
+
+  def define_variables(args = {})
+    super
+    @id = item_code
+  end
+
   def attributes
     [
       Centaman::Attribute.new(
