@@ -34,6 +34,16 @@ module Centaman
     private
 
     def build_member(member)
+      return {
+        'FirstName' => member[:first_name].try(:squish).try(:upcase),
+        'LastName' => member[:last_name].try(:squish).try(:upcase),
+        'Gender' => member[:gender].try(:squish),
+        'Title' => member[:title].try(:squish).try(:upcase),
+        'DateOfBirth' => member[:date_of_birth],
+        'IsPrimary' => false,
+        'PrimaryMemberId' => primary_member_id
+      } if member.is_a?(Hash)
+
       {
         'FirstName' => member.first_name.try(:squish).try(:upcase),
         'LastName' => member.last_name.try(:squish).try(:upcase),
