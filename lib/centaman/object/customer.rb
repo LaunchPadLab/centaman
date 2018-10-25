@@ -1,9 +1,16 @@
 module Centaman
   class Object::Customer < Centaman::Object
-    attr_reader :phone
+    attr_reader :address, :phone, :attendees
     # rubocop:disable Metrics/MethodLength
+
     def after_init(args)
+      @address = args["Address"]
       @phone = args["Address"]["HomePhone"]
+      @attendees = build_booking_attendees(args["BookingAttendee"])
+    end
+
+    def build_booking_attendees(booking_attendees = [])
+      booking_attendees.map { |a| Centaman::Object::AttendeeDetail.new(a) }
     end
 
     def attributes
@@ -11,11 +18,6 @@ module Centaman
         Centaman::Attribute.new(
           centaman_key: 'MemberCode',
           app_key: :member_code,
-          type: :integer
-        ),
-        Centaman::Attribute.new(
-          centaman_key: 'MemberNumber',
-          app_key: :member_number,
           type: :integer
         ),
         Centaman::Attribute.new(
