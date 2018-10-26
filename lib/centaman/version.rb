@@ -1,3 +1,3 @@
 module Centaman
-  VERSION = "6.0.8"
+  VERSION = "7.0.0"
 end
