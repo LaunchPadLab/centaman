@@ -4,8 +4,8 @@ module Centaman
   class Service::UpdateMember < Centaman::Service
     include Centaman::JsonWrapper
 
-    attr_reader :id, :first_name, :last_name, :address,
-                :gender, :phone, :email, :password, :is_primary
+    attr_reader :id, :first_name, :last_name, :address, :gender,
+                :date_of_birth, :phone, :email, :password, :is_primary
 
     def after_init(args)
       @id = args[:id].try(:to_i)
@@ -13,6 +13,7 @@ module Centaman
       @last_name = args[:last_name].try(:squish)
       @address = args[:address].try(:symbolize_keys)
       @gender = args[:gender]
+      @date_of_birth = args[:date_of_birth]
       @phone = args[:phone]
       @email = args[:email].try(:squish)
       @password = args[:password]
@@ -38,6 +39,7 @@ module Centaman
         'LastName' => last_name.try(:upcase),
         'HomeAddress' => home_address,
         'Gender' => gender,
+        'DateOfBirth' => date_of_birth,
         'Email' => email.try(:upcase),
         'Password' => password,
         'IsPrimary' => is_primary
