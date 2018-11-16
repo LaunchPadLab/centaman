@@ -28,7 +28,7 @@ module Centaman
     end
 
     def final_object_class
-      name = self.class.name.split('::').last
+      name = object_class.name.split('::').last
       override = Centaman.configuration.object_overrides[name]
       override_class = override.constantize if override
       override_class || object_class
