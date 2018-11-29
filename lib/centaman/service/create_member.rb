@@ -1,7 +1,7 @@
 require 'securerandom'
 
 module Centaman
-  class Service::CreatePrimaryMember < Centaman::Service
+  class Service::CreateMember < Centaman::Service
     include Centaman::JsonWrapper
 
     attr_reader :first_name, :last_name, :address, :gender, :title,
