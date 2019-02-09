@@ -23,8 +23,8 @@ module Centaman
 
     def build_address
       {
-        'Street1' => address[:street_address] || '',
-        'Street2' => address[:street_address_2] || '',
+        'Street1' => address[:street_address1] || '',
+        'Street2' => address[:street_address2] || '',
         'City' => address[:city] || '',
         'State' => address[:state] || '',
         'Postalcode' => address[:zip] || '',
